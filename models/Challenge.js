@@ -30,8 +30,13 @@ ChallengeSchema.methods = {
         })
       }
     };
+  },
+
+  toString: function(players) {
+    return this.state + " - " + this.challenged  +  " *vs* " + this.challenger + " - " + this.date;
   }
 };
+
 
 var Challenge = mongoose.model('Challenge', ChallengeSchema);
 module.exports = Challenge;
