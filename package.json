@@ -4,20 +4,21 @@
   "description": "Pongbot for Slack.",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "",
     "express": "^4.10.6",
     "express-hal": "",
-    "node-slack": "^0.0.5",
-    "body-parser": "",
+    "moment": "^2.10.3",
     "mongoose": "",
     "mongoose-pages": "",
-    "request": "",
+    "node-slack": "^0.0.5",
     "pluralize": "",
     "q": "",
+    "request": "",
     "underscore": ""
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": ">=1.1.2"
+    "node": "0.12.x",
+    "npm": "2.9.1"
   },
   "devDependencies": {
     "mocha": "",
@@ -39,6 +40,6 @@
     "url": "https://github.com/andrewvy/slack-pongbot.git"
   },
   "bugs": {
-    "url" : "https://github.com/andrewvy/slack-pongbot/issues"
+    "url": "https://github.com/andrewvy/slack-pongbot/issues"
   }
 }

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var mongoosePages = require('mongoose-pages');
 var Schema = mongoose.Schema;
+var moment = require('moment');
 
 var ChallengeSchema = new Schema({
 	state: String,
@@ -33,7 +34,7 @@ ChallengeSchema.methods = {
   },
 
   toString: function(players) {
-    return this.state + " - " + this.challenged  +  " *vs* " + this.challenger + " - " + this.date;
+    return this.state + " - *" + this.challenged  +  "* vs *" + this.challenger + "* - *" + moment(this.date).fromNow() + "* (" + moment(this.date).format('MM/D/YY - h:mm') + ")";
   }
 };
 
