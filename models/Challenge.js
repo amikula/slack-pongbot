@@ -33,7 +33,7 @@ ChallengeSchema.methods = {
   },
 
   toString: function(players) {
-    return this.state + " - " + this.challenged  +  " *vs* " + this.challenger + " - " + this.date;
+    return this.state + " - *" + this.challenged  +  "* vs *" + this.challenger + "* - " + new Date(this.date);
   }
 };
 
