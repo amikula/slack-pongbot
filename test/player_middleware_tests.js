@@ -23,7 +23,7 @@ describe('Player Middleware', function () {
     it('automatically updates ID', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot foobar', user_id: 'U02BEFY4U', user_name: 'WangHao' })
+        .send({ text: 'foosbot foobar', user_id: 'U02BEFY4U', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -38,7 +38,7 @@ describe('Player Middleware', function () {
     it('does not update with a different ID', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot foobar', user_id: 'ZZZZZZZZ', user_name: 'NotWangHao' })
+        .send({ text: 'foosbot foobar', user_id: 'ZZZZZZZZ', user_name: 'NotWangHao' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -61,7 +61,7 @@ describe('Player Middleware', function () {
     it('automatically keeps name in sync', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot foobar', user_id: 'U02BEFY4U', user_name: 'WangHaoWasRenamed' })
+        .send({ text: 'foosbot foobar', user_id: 'U02BEFY4U', user_name: 'WangHaoWasRenamed' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;

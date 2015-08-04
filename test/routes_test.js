@@ -16,11 +16,11 @@ describe('Routes', function () {
   it('unknown command', function () {
     request(app)
       .post('/')
-      .send({ text: 'pongbot foobar' })
+      .send({ text: 'foosbot foobar' })
       .expect(200)
       .end(function(err, res){
         if (err) throw err;
-        expect(res.body.text).to.eq("I couldn't understand that command. Use _pongbot help_ to get a list of available commands.");
+        expect(res.body.text).to.eq("I couldn't understand that command. Use _foosbot help_ to get a list of available commands.");
       });
   });
 
@@ -28,7 +28,7 @@ describe('Routes', function () {
     it('registers a new player', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot register', user_name: 'WangHao' })
+        .send({ text: 'foosbot register', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -47,7 +47,7 @@ describe('Routes', function () {
       it('does not register twice by name', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot register', user_name: 'WangHao' })
+          .send({ text: 'foosbot register', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("You've already registered!");
@@ -58,7 +58,7 @@ describe('Routes', function () {
       it('does not register twice by ID', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot register', user_name: 'WangHaoWasRenamed', user_id: 'U02BEFY4U' })
+          .send({ text: 'foosbot register', user_name: 'WangHaoWasRenamed', user_id: 'U02BEFY4U' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("You've already registered!");
@@ -73,10 +73,10 @@ describe('Routes', function () {
       it('advises to register', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge singles ZhangJike', user_name: 'WangHao' })
+          .send({ text: 'foosbot challenge singles ZhangJike', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.text).to.eq("Player 'WangHao' does not exist. Are you registered? Use _pongbot register_ first.");
+            expect(res.body.text).to.eq("Player 'WangHao' does not exist. Are you registered? Use _foosbot register_ first.");
             done();
           });
       });
@@ -92,10 +92,10 @@ describe('Routes', function () {
       it('creates a challenge', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge singles ZhangJike', user_name: 'WangHao' })
+          .send({ text: 'foosbot challenge singles ZhangJike', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.text).to.startsWith("WangHao has challenged ZhangJike to a ping pong match!");
+            expect(res.body.text).to.startsWith("WangHao has challenged ZhangJike to a foosball game!");
             done();
           });
       });
@@ -103,10 +103,10 @@ describe('Routes', function () {
       it('creates a challenge with case insensitive usernames', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge singles zhangjike', user_name: 'wanghao' })
+          .send({ text: 'foosbot challenge singles zhangjike', user_name: 'wanghao' })
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.text).to.startsWith("WangHao has challenged ZhangJike to a ping pong match!");
+            expect(res.body.text).to.startsWith("WangHao has challenged ZhangJike to a foosball game!");
             done();
           });
       });
@@ -122,7 +122,7 @@ describe('Routes', function () {
       it('yields an error when user does not exist', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge doubles ChenQi against ZhangJike GuoYue', user_name: 'WangHao' })
+          .send({ text: 'foosbot challenge doubles ChenQi against ZhangJike GuoYue', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("Error: Player 'GuoYue' does not exist.");
@@ -133,10 +133,10 @@ describe('Routes', function () {
       it('creates a challenge', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge doubles ChenQi against ZhangJike ViktorBarna', user_name: 'WangHao' })
+          .send({ text: 'foosbot challenge doubles ChenQi against ZhangJike ViktorBarna', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.text).to.startsWith("WangHao and ChenQi have challenged ZhangJike and ViktorBarna to a ping pong match!");
+            expect(res.body.text).to.startsWith("WangHao and ChenQi have challenged ZhangJike and ViktorBarna to a foosball game!");
             done();
           });
       });
@@ -144,10 +144,10 @@ describe('Routes', function () {
       it('creates a challenge with case-insensitive usernames', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge doubles chenQi against zhangJike viktorBarna', user_name: 'wangHao' })
+          .send({ text: 'foosbot challenge doubles chenQi against zhangJike viktorBarna', user_name: 'wangHao' })
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.text).to.startsWith("WangHao and ChenQi have challenged ZhangJike and ViktorBarna to a ping pong match!");
+            expect(res.body.text).to.startsWith("WangHao and ChenQi have challenged ZhangJike and ViktorBarna to a foosball game!");
             done();
           });
       });
@@ -167,7 +167,7 @@ describe('Routes', function () {
       it('accepts a challenge', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot accept', user_name: 'ZhangJike' })
+          .send({ text: 'foosbot accept', user_name: 'ZhangJike' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("ZhangJike accepted WangHao's challenge.");
@@ -178,7 +178,7 @@ describe('Routes', function () {
       it('declines a challenge', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot decline', user_name: 'ZhangJike' })
+          .send({ text: 'foosbot decline', user_name: 'ZhangJike' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("ZhangJike declined WangHao's challenge.");
@@ -189,7 +189,7 @@ describe('Routes', function () {
       it('chickens out of a challenge', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot chicken', user_name: 'WangHao' })
+          .send({ text: 'foosbot chicken', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("WangHao chickened out of the challenge against ZhangJike.");
@@ -200,7 +200,7 @@ describe('Routes', function () {
       it('cannot create an opposite challenge', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot challenge singles WangHao', user_name: 'ZhangJike' })
+          .send({ text: 'foosbot challenge singles WangHao', user_name: 'ZhangJike' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("Error: There's already an active challenge between WangHao and ZhangJike.");
@@ -228,7 +228,7 @@ describe('Routes', function () {
       it('won', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot won', user_name: 'ZhangJike' })
+          .send({ text: 'foosbot won', user_name: 'ZhangJike' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("Only the player/team that lost can record the game.");
@@ -239,7 +239,7 @@ describe('Routes', function () {
       it('lost', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot lost', user_name: 'ZhangJike' })
+          .send({ text: 'foosbot lost', user_name: 'ZhangJike' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("Match has been recorded, WangHao defeated ZhangJike.");
@@ -260,7 +260,7 @@ describe('Routes', function () {
       it('returns elo', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot rank', user_name: 'WangHao' })
+          .send({ text: 'foosbot rank', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("WangHao: 0 wins 0 losses (elo: 0)");
@@ -271,7 +271,7 @@ describe('Routes', function () {
       it('tolerates lots of spaces', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot  rank  WangHao  ' })
+          .send({ text: 'foosbot  rank  WangHao  ' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("WangHao: 0 wins 0 losses (elo: 0)");
@@ -301,7 +301,7 @@ describe('Routes', function () {
     it('infinity', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot leaderboard infinity', user_name: 'WangHao' })
+        .send({ text: 'foosbot leaderboard infinity', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
           expect(res.body.text).to.eq(
@@ -319,7 +319,7 @@ describe('Routes', function () {
     it('Infinity', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot leaderboard Infinity', user_name: 'WangHao' })
+        .send({ text: 'foosbot leaderboard Infinity', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
           expect(res.body.text).to.eq(
@@ -337,7 +337,7 @@ describe('Routes', function () {
     it('99', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot leaderboard infinity', user_name: 'WangHao' })
+        .send({ text: 'foosbot leaderboard infinity', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
           expect(res.body.text).to.eq(
@@ -355,7 +355,7 @@ describe('Routes', function () {
     it('without arguments', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot leaderboard', user_name: 'WangHao' })
+        .send({ text: 'foosbot leaderboard', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
           expect(res.body.text).to.eq(
@@ -372,7 +372,7 @@ describe('Routes', function () {
     it('eLiTe', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot LeADeRBoaRD', user_name: 'WangHao' })
+        .send({ text: 'foosbot LeADeRBoaRD', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
           expect(res.body.text).to.eq(
@@ -388,7 +388,7 @@ describe('Routes', function () {
     it('2', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot leaderboard 2', user_name: 'WangHao' })
+        .send({ text: 'foosbot leaderboard 2', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
           expect(res.body.text).to.eq(
@@ -417,10 +417,10 @@ describe('Routes', function () {
       it('with the wrong admin secret', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot reset WangHao invalid', user_name: 'WangHao' })
+          .send({ text: 'foosbot reset WangHao invalid', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
-            expect(res.body.text).to.eq("Invalid secret. Use _pongbot reset <username> <secret>_.");
+            expect(res.body.text).to.eq("Invalid secret. Use _foosbot reset <username> <secret>_.");
             done();
           });
       });
@@ -428,7 +428,7 @@ describe('Routes', function () {
       it('with the correct admin secret', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot reset WangHao admin_secret', user_name: 'vy' })
+          .send({ text: 'foosbot reset WangHao admin_secret', user_name: 'vy' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("WangHao's stats have been reset.");
@@ -450,10 +450,10 @@ describe('Routes', function () {
     it('with the wrong admin secret', function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot new_season invalid', user_name: 'WangHao' })
+        .send({ text: 'foosbot new_season invalid', user_name: 'WangHao' })
         .expect(200)
         .end(function(err, res) {
-          expect(res.body.text).to.eq("Invalid secret. Use _pongbot new_season <secret>_.");
+          expect(res.body.text).to.eq("Invalid secret. Use _foosbot new_season <secret>_.");
           done();
         });
     });
@@ -470,7 +470,7 @@ describe('Routes', function () {
       it('with the correct admin secret', function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot new_season admin_secret', user_name: 'WangHao' })
+          .send({ text: 'foosbot new_season admin_secret', user_name: 'WangHao' })
           .expect(200)
           .end(function(err, res) {
             expect(res.body.text).to.eq("Welcome to the new season!");
@@ -488,7 +488,7 @@ describe('Routes', function () {
     it('is helpful', function () {
       request(app)
         .post('/')
-        .send({ text: 'pongbot source' })
+        .send({ text: 'foosbot source' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -501,7 +501,7 @@ describe('Routes', function () {
     it('is helpful', function () {
       request(app)
         .post('/')
-        .send({ text: 'pongbot help' })
+        .send({ text: 'foosbot help' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -522,7 +522,7 @@ describe('Routes', function () {
     it("doesn't log", function (done) {
       request(app)
         .post('/')
-        .send({ text: 'pongbot help' })
+        .send({ text: 'foosbot help' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -543,7 +543,7 @@ describe('Routes', function () {
       it("logs hook", function (done) {
         request(app)
           .post('/')
-          .send({ text: 'pongbot help' })
+          .send({ text: 'foosbot help' })
           .expect(200)
           .end(function(err, res){
             if (err) throw err;
@@ -555,10 +555,10 @@ describe('Routes', function () {
   });
 
   describe('hug', function() {
-    it('mean pongbot', function () {
+    it('mean foosbot', function () {
       request(app)
         .post('/')
-        .send({ text: 'pongbot hug' })
+        .send({ text: 'foosbot hug' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;
@@ -571,7 +571,7 @@ describe('Routes', function () {
     it('no, you suck', function () {
       request(app)
         .post('/')
-        .send({ text: 'pongbot sucks' })
+        .send({ text: 'foosbot sucks' })
         .expect(200)
         .end(function(err, res){
           if (err) throw err;

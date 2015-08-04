@@ -383,7 +383,7 @@ describe('Pong', function () {
 
         it('creates a challenge', function (done) {
           pong.createSingleChallenge('ZhangJike', 'DengYaping').then(function (result) {
-            expect(result.message).to.eq("ZhangJike has challenged DengYaping to a ping pong match!");
+            expect(result.message).to.eq("ZhangJike has challenged DengYaping to a foosball game!");
             expect(result.challenge).to.not.be.null;
             pong.findPlayers(['ZhangJike', 'DengYaping']).then(function(players) {
               var challenger = players[0];
@@ -427,7 +427,7 @@ describe('Pong', function () {
       it('creates a challenge', function (done) {
         pong.createDoubleChallenge('ZhangJike', 'DengYaping', 'ChenQi', 'ViktorBarna').then(function (result) {
           expect(result).to.not.be.null;
-          expect(result.message).to.eq("ZhangJike and DengYaping have challenged ChenQi and ViktorBarna to a ping pong match!");
+          expect(result.message).to.eq("ZhangJike and DengYaping have challenged ChenQi and ViktorBarna to a foosball game!");
           expect(result.challenge).to.not.be.null;
           pong.findPlayers(['ZhangJike', 'DengYaping', 'ChenQi', 'ViktorBarna']).then(function (players) {
             expect(players[0].currentChallenge.equals(result.challenge._id)).to.be.true;
